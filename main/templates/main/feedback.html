@@ -1,0 +1,79 @@
+{% extends 'main/base.html' %}
+{% block title %} FEEDBACK {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h4><a style='color:floralwhite;' href='/'>Credit Management</a></h4>  
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-text"><a class="nav-link" href="/view"> View Users </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/transfer"> Transfer Credits </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/history"> Transaction History </a></li>
+                    <li class="navbar-text active"><a class="nav-link" href="/feedback"> Feedback </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class='container'>
+        <div class='row row-header'>
+            <div class='col-12'>
+                <h1 style='text-align:center;'> Feedback </h1>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-12'>
+                <h3 style='text-align:center;'> This page is displayed just to get feedback from mentors and my fellow interns </h3>
+            </div>
+        </div>
+
+        <div class="row row-content">
+            <div class="col-12 col-md-12">
+                <form method='POST'>
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="name" class="col-md-2 col-form-label">Name</label>
+                        <div class='col-md-10'>
+                            <input type='text' class="form-control" id="name" name="name" placeholder="Name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-2 col-form-label">Role</label>
+                        <div class='col-md-10'>
+                            <select class='form-control' name='role' id='role' required>
+                                <option value=''>--Role--</option>
+                                <option value='Mentor'>Mentor</option>
+                                <option value='Intern'>Intern</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="feedback" class="col-md-2 col-form-label">Feedback</label>
+                        <div class='col-md-10'>
+                            <textarea class="form-control" rows='6' id="feedback" name="feedback" placeholder="Enter your suggestions and feedback here...." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class='col-md-10 offset-md-2'>
+                            <button type="submit" name='save' value='save' class="btn btn-primary">Send Feedback</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+       </div>
+    </div>
+    <!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+    to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+    After all I too did take some help from the community -->
+
+{% endblock %}

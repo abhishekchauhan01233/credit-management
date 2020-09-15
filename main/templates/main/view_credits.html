@@ -1,0 +1,149 @@
+{% extends 'main/base.html' %}
+{% block title %} VIEW USERS {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h4><a style='color:floralwhite;' href='/'>Credit Management</a></h4>  
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-text active"><a class="nav-link" href="/view"> View Users </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/transfer"> Transfer Credits </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/history"> Transaction History </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/feedback"> Feedback </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class='container'>
+        <div class='col-12 col-sm-12'>
+            <div class='row row-header'>
+                <div class='col-12'>
+                    <h1 style='text-align:center;'> View Users</h1>
+                </div>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible text-center">
+                        <h3 id='message'>&nbsp;&nbsp;{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class='col-6 offset-6 col-sm-2 offset-sm-10'>
+                <h4><a id='add'>Add</a>&nbsp;&nbsp;<a id='delete'>Delete</a></h4>
+            </div>
+            <div class='table-responsive'>
+                <table class='table table-striped'>
+                    <thead class='thead-dark'>
+                        <tr id='tr'>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Current Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d  in data %}
+                        <tr>
+                            <td>{{ d.user_id }}</td>
+                            <td>{{ d.name }}</td>
+                            <td>{{ d.email }}</td>
+                            <td>{{ d.credit }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id='addModal' class='modal fade' role='dialog'>
+            <div class='modal-dialog modal-lg' role='content'>
+                <div class='modal-content'>
+                    <div class='modal-header'> 
+                        <h3>Add User</h3>
+                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                    </div>
+                    <div class='modal-body'>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <div class='form-row'>
+                                <div class='form-group col-sm-12'>
+                                    <input type='number' class='form-control form-control-sm mr-1' name='userid' max='1000' min='0' placeholder='Enter User ID' required>
+                                </div>
+                                <div class='form-group col-sm-12'>
+                                    <input type='text' class='form-control form-control-sm mr-1' name='name' placeholder='Enter Name' required>
+                                </div>
+                                <div class='form-group col-sm-12'>
+                                    <input type='email' class='form-control form-control-sm mr-1' name='email' placeholder='Enter Email' required>
+                                </div>
+                                <div class='form-group col-sm-12'>
+                                    <input type='Number' class='form-control form-control-sm mr-1' name='credit' =max='100' min='0' placeholder='Enter Credits' required>
+                                </div>
+                            </div>
+
+                            <div class='form-row'>
+                                <button type='button' name='cancel' class='btn btn-secondary btn-sm ml-auto' data-dismiss="modal">Cancel</button>
+                                <button type='submit' value='add' name='add' class='btn btn-success btn-sm ml-1'>Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id='deleteModal' class='modal fade' role='dialog'>
+            <div class='modal-dialog modal-lg' role='content'>
+                <div class='modal-content'>
+                    <div class='modal-header'> 
+                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                    </div>
+                    <div class='modal-body'>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <div class='form-row'>
+                                <h3>Select the User</h3>
+                            </div>
+                            <div class='row'>
+                                <div class='col-8 col-sm-10'>
+                                    <select class='form-control' name='email' id='email' required>
+                                        <option value=''>-----------------------------------------------</option>
+                                        {% for d in data %}
+                                            <option value={{ d.email }}>{{ d.email }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class='col-4 col-sm-2'>
+                                    <button type='submit' value='delete' name='delete' class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>  
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+    to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+    After all I too did take some help from the community -->
+
+    <script>
+        $(document).ready(function(){
+            $('#add').click(function(){
+                $('#addModal').modal();
+            });
+
+            $('#delete').click(function(){
+                $('#deleteModal').modal();
+            });
+        });
+    </script>
+{% endblock %}

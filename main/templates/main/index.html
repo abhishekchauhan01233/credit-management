@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+{% block title %} HOME {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class='container'>
+        <div class='row row-header'>
+            <div class='col-12 col-sm-12'>
+                <h1 style='text-align:center; font-size:350%;'><b> Credit Management Application</b></h1>
+            </div>
+        </div>
+
+        <div class='row row-content'>
+            <div class='col-12 col-sm-4'>
+                <div class='row justify-content-center'>
+                    <a href='/view'><img id='view' class='d-flex mr-1 align-self-center' src='/media/view.jpg'></a>
+                </div>
+                <div class='row justify-content-center'>
+                    <h3><a id='link' href='/view'>View Users</a></h3>
+                </div>
+            </div>
+            <div class='col-12 col-sm-4'>
+                <div class='row justify-content-center'>
+                    <a href='/transfer'><img id='transfer' class='d-flex mr-1 align-self-center' src='/media/transfer2.png'></a>
+                </div>
+                <div class='row justify-content-center'>
+                    <h3><a id='link' href='/transfer'>Transfer Credit</a></h3>
+                </div>
+            </div>
+            <div class='col-12 col-sm-4'>
+                <div class='row justify-content-center'>
+                    <a href='/history'><img id='history' class='d-flex mr-1 align-self-center' src='/media/history.png'></a>
+                </div>
+                <div class='row justify-content-center'>
+                    <h3><a id='link' href='/history'>Transaction History</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+    to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+    After all I too did take some help from the community -->
+
+{% endblock %}

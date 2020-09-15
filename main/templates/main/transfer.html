@@ -1,0 +1,85 @@
+{% extends 'main/base.html' %}
+{% block title %} TRANSFER CREDITS {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h4><a style='color:floralwhite;' href='/'>Credit Management</a></h4>  
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-text"><a class="nav-link" href="/view"> View Users </a></li>
+                    <li class="navbar-text active"><a class="nav-link" href="/transfer"> Transfer Credits </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/history"> Transaction History </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/feedback"> Feedback </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class='container'>
+        <div class='row row-header'>
+            <div class='col-12'>
+                <h1 style='text-align:center; font-size:275%;'> Transfer Credits </h1>
+            </diV>
+        </div>
+
+        <form method='POST'>
+            {% csrf_token %}
+            <div class='form-group row'>
+                <label class='col-sm-1  col-form-label'> From </label>
+                <div class='col-sm-4'>
+                    <select class='form-control' name='from' id='from' required>
+                        <option value=''>-----------------------------------------------</option>
+                        {% for d in data %}
+                        <option value={{ d.email }}>{{ d.email }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+                <label class='col-sm-1 offset-sm-2 col-form-label'> To </label>
+                <div class='col-sm-4'>
+                    <select class='form-control' name='to' id='to' required>
+                        <option value=''>-----------------------------------------------</option>
+                        {% for d in data %}
+                        <option value={{ d.email }}>{{ d.email }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label class='col-sm-1 col-form-label'> Amount </label>
+
+                <div class='col-sm-4'>
+                    <input type='number' class="form-control" id="amount" name="amount" min='0' placeholder="Amount" required>
+                </div>
+            </div>
+
+
+            <div class='form-group row'>
+                <div class='col-sm-2 offset-sm-5 offset-3'>
+                    <button type="submit" value='save' name='save' class="btn btn-success">&nbsp;Transfer Credits&nbsp;</button>
+                </div>
+            </div>
+        </form>
+
+        {% if messages %}
+            {% for message in messages %}
+                <br><br>
+                <div class="alert alert-{{ message.tags }} alert-dismissible text-center">
+                    <h3 id='message'>&nbsp;&nbsp;{{ message }}</h3>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+    to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+    After all I too did take some help from the community -->
+
+{% endblock %}
