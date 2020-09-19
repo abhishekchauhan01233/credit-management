@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% block title %} TRANSACTION HISTORY {% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h4><a style='color:floralwhite;' href='/'>Credit Management</a></h4>  
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-text"><a class="nav-link" href="/view"> View Users </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/transfer"> Transfer Credits </a></li>
+                    <li class="navbar-text active"><a class="nav-link" href="/history"> Transaction History </a></li>
+                    <li class="navbar-text"><a class="nav-link" href="/feedback"> Feedback </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class='container'>
+        <div class='col-12 col-sm-12'>
+            <div class='row row-header'>
+                <h2> Transaction History</h2>
+            </div>
+            <div class='table-responsive'>
+                <table class='table'>
+                    <thead class='thead-dark'>
+                        <tr id='tr'>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Credits</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d  in data %}
+                        <tr>
+                            <td>{{ d.from_email }}</td>
+                            <td>{{ d.to_email }}</td>
+                            <td>{{ d.credit }}</td>
+                            <td>{{ d.date }}</td>
+                            <td>{{ d.current_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- !Disclaimer - you must not use this website's template in as it is form - please feel free 
+    to contact me @ chiragchauhan12323@gmail.com for the source code and implementation in your use case -
+    After all I too did take some help from the community -->
+
+{% endblock %}
